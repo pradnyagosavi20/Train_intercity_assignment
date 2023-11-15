@@ -1,0 +1,478 @@
+TRAIN INTERCITY ASSIGNMENT
+
+create statment :
+
+1. create table train(train_id varchar(10), train_name varchar(20), primary key(train_id));
+2. create table staff(staff_id varchar(10), staff_name varchar(20), contact_no varchar(10), city_of_residence varchar(30), primary key(staff_id));
+3. create table route(route_id varchar(10), origin varchar(20), destination varchar(10), distance varchar(30), time_taken varchar(30), operating_days varchar(50), primary key(route_id));
+4. create table station(station_id varchar(10), station_name varchar(20), primary key(station_id));
+5. create table schedule(train_id varchar(10), route_id varchar(20), date date, departure_time time, arrival_time time, primary key(train_id, route_id, station_id));
+6. alter table schedule add foreign key(train_id) references train(train_id);
+7. alter table schedule add foreign key(route_id) references route(route_id);
+8. create table maintainance(maint_id varchar(15), maintainance_date date, last_maint_date date, coach_id varchar(20), primary key(maint_id));
+9.create table coach(coach_id varchar(10), standby_coach varchar(10), mileage varchar(20), primary key(coach_id));
+10.alter table maintainance add foreign key(coach_id) references coach(coach_id);
+11.create table has(coach_id varchar(10), train_id varchar(15), date date);
+12.alter table has add foreign key(coach_id) references coach(coach_id);
+13.alter table has add foreign key(train_id) references train(train_id);
+14.create table staff_schedule(staff_id varchar(10), route_id varchar(20), train_id varchar(10), remark varchar(20), date date, time time);
+15.alter table staff_schedule add foreign key(train_id) references train(train_id);
+16.alter table staff_schedule add foreign key(route_id) references route(route_id);
+17.alter table staff_schedule add foreign key(staff_id) references staff(staff_id);
+18.create table accommodation(room_id varchar(20), staff_id varchar(20), date date, primary key(room_id));
+19.alter table accommodation add foreign key(staff_id) references staff(staff_id);
+20.create table travel_agent(agent_id varchar(20), agent_name varchar(30), contact_no varchar(10), commission_rate varchar(20), primary key(agent_id));
+21.create table seat(seat_id varchar(40), seat_status varchar(20), primary key(seat_id));
+22.create table passenger(pass_id varchar(20), pass_name varchar(30), contact_no varchar(10), age int, discount_eligibility varchar(20), primary key(pass_id));
+23.create table reaches_to(train_id varchar(20), station_id varchar(20), date date, departure_time time, expected_arr_time time, actual_arr_time time);
+24.alter table reaches_to add foreign key(train_id) references train(train_id);
+25.alter table reaches_to add foreign key(station_id) references station(station_id);
+26.create table ticket(ticket_id varchar(20), pass_id varchar(20), pass_name varchar(30), agent_id varchar(20), seat_id varchar(20), seat_status varchar(30), route_id varchar(20), age int, date date, price int, discount varchar(20), primary key(ticket_id));
+27.alter table ticket add foreign key(pass_id) references passenger(pass_id);
+28.alter table ticket add foreign key(agent_id) references travel_agent(agent_id);
+29. alter table ticket add foreign key(seat_id) references seat(seat_id);
+30.alter table ticket add foreign key(route_id) references route(route_id); 
+
+Load Statment :
+
+1.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/accommodation.csv" INTO TABLE accommodation FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
+2.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/coach-1.csv" INTO TABLE coach FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
+3.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/passenger.csv" INTO TABLE passenger FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
+4.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/travel_agent.csv" INTO TABLE travel_agent FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
+5.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/train-1" INTO TABLE train FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
+6.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/station.csv" INTO TABLE station FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
+7.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/Staff-1.csv" INTO TABLE staff FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
+8.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/route.csv" INTO TABLE  route FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
+9.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/Seat.csv" INTO TABLE seat FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
+10.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/has.csv" INTO TABLE has FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
+11.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/reaches2.csv" INTO TABLE reaches_to FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
+12.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/schedule-1.csv" INTO TABLE schedule FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
+13.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/maintainance-1.csv" INTO TABLE maintainance FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
+14.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/staff_schedule-1.csv" INTO TABLE staff_schedule FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
+15.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/TicketMain.csv" INTO TABLE ticket FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
+
+ 
+1. accommodation
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| room_id  | varchar(20) | NO   | PRI | NULL    |       |
+| staff_id | varchar(20) | YES  | MUL | NULL    |       |
+| date     | date        | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+
+2. has
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| coach_id | varchar(20) | YES  | MUL | NULL    |       |
+| train_id | varchar(20) | YES  | MUL | NULL    |       |
+| date     | date        | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+
+3. coach
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| coach_id      | varchar(10) | NO   | PRI | NULL    |       |
+| standby_coach | varchar(10) | YES  |     | NULL    |       |
+| mileage       | varchar(20) | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+
+4. maintainance
++-------------------+-------------+------+-----+---------+-------+
+| Field             | Type        | Null | Key | Default | Extra |
++-------------------+-------------+------+-----+---------+-------+
+| maint_id          | varchar(15) | NO   | PRI | NULL    |       |
+| maintainance_date | date        | YES  |     | NULL    |       |
+| last_maint_date   | date        | YES  |     | NULL    |       |
+| coach_id          | varchar(20) | YES  | MUL | NULL    |       |
++-------------------+-------------+------+-----+---------+-------+
+
+5. passenger
++----------------------+-------------+------+-----+---------+-------+
+| Field                | Type        | Null | Key | Default | Extra |
++----------------------+-------------+------+-----+---------+-------+
+| pass_id              | varchar(20) | NO   | PRI | NULL    |       |
+| pass_name            | varchar(30) | YES  |     | NULL    |       |
+| contact_no           | varchar(10) | YES  |     | NULL    |       |
+| age                  | int         | YES  |     | NULL    |       |
+| discount_eligibility | varchar(20) | YES  |     | NULL    |       |
++----------------------+-------------+------+-----+---------+-------+
+
+6. staff
++-------------------+-------------+------+-----+---------+-------+
+| Field             | Type        | Null | Key | Default | Extra |
++-------------------+-------------+------+-----+---------+-------+
+| staff_id          | varchar(10) | NO   | PRI | NULL    |       |
+| staff_name        | varchar(20) | YES  |     | NULL    |       |
+| contact_no        | varchar(10) | YES  |     | NULL    |       |
+| city_of_residence | varchar(30) | YES  |     | NULL    |       |
++-------------------+-------------+------+-----+---------+-------+
+
+7. staff_schedule
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| staff_id | varchar(10) | NO   | PRI | NULL    |       |
+| route_id | varchar(20) | NO   | PRI | NULL    |       |
+| train_id | varchar(10) | NO   | PRI | NULL    |       |
+| remark   | varchar(20) | YES  |     | NULL    |       |
+| date     | date        | YES  |     | NULL    |       |
+| time     | time        | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+
+8.travel_agent
++-----------------+-------------+------+-----+---------+-------+
+| Field           | Type        | Null | Key | Default | Extra |
++-----------------+-------------+------+-----+---------+-------+
+| agent_id        | varchar(20) | NO   | PRI | NULL    |       |
+| agent_name      | varchar(30) | YES  |     | NULL    |       |
+| contact_no      | varchar(10) | YES  |     | NULL    |       |
+| commission_rate | varchar(20) | YES  |     | NULL    |       |
++-----------------+-------------+------+-----+---------+-------+
+
+9. ticket 
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| ticket_id   | varchar(20) | NO   | PRI | NULL    |       |
+| pass_id     | varchar(20) | YES  | MUL | NULL    |       |
+| pass_name   | varchar(30) | YES  |     | NULL    |       |
+| agent_id    | varchar(30) | YES  | MUL | NULL    |       |
+| seat_id     | varchar(20) | YES  | MUL | NULL    |       |
+| seat_status | varchar(30) | YES  |     | NULL    |       |
+| route_id    | varchar(20) | YES  | MUL | NULL    |       |
+| age         | int         | YES  |     | NULL    |       |
+| date        | date        | YES  |     | NULL    |       |
+| price       | int         | YES  |     | NULL    |       |
+| discount    | varchar(20) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+
+10. reaches_to
++-------------------+-------------+------+-----+---------+-------+
+| Field             | Type        | Null | Key | Default | Extra |
++-------------------+-------------+------+-----+---------+-------+
+| train_id          | varchar(20) | YES  | MUL | NULL    |       |
+| station_id        | varchar(20) | YES  | MUL | NULL    |       |
+| date              | date        | YES  |     | NULL    |       |
+| departure_time    | time        | YES  |     | NULL    |       |
+| expected_arr_time | time        | YES  |     | NULL    |       |
+| actual_arr_time   | time        | YES  |     | NULL    |       |
++-------------------+-------------+------+-----+---------+-------+
+
+11. route 
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| route_id       | varchar(10) | NO   | PRI | NULL    |       |
+| origin         | varchar(20) | YES  |     | NULL    |       |
+| destination    | varchar(30) | YES  |     | NULL    |       |
+| distance       | varchar(30) | YES  |     | NULL    |       |
+| time_taken     | varchar(30) | YES  |     | NULL    |       |
+| operating_days | varchar(50) | YES  |     | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+
+12.station 
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| station_id   | varchar(10) | NO   | PRI | NULL    |       |
+| station_name | varchar(20) | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+
+13. train
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| train_id   | varchar(10) | NO   | PRI | NULL    |       |
+| train_name | varchar(20) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+
+14. schedule
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| train_id       | varchar(20) | YES  | MUL | NULL    |       |
+| route_id       | varchar(20) | YES  | MUL | NULL    |       |
+| date           | date        | YES  |     | NULL    |       |
+| departure_time | time        | YES  |     | NULL    |       |
+| arrival_time   | time        | YES  |     | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+
+--> In ticket table, seat_id is depend on ticket_id. To create new seat we have to create ticket_id. To avoid dependency we have created seat table with attribute seat_id(primary key).
+15. seat
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| seat_id | varchar(40) | NO   | PRI | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+PART 2 : 
+
+SET A :
+
+Name : Gosavi Pradnya Mahesh 
+Roll No. : 23112011
+
+1.Show all trains information travelling between Goa Mumbai and Ajmer-Lonavala where at least half the coaches are due for maintenance on or before 30 November this year.
+Query :
+	select t.* from train t join has h on h.train_id=t.train_id join coach c on c.coach_id=h.coach_id join maintainance m on m.coach_id=c.coach_id join schedule s on s.train_id=t.train_id join route r on r.route_id=s.route_id
+    -> where (r.origin="Goa" and r.destination="Mumbai" or r.origin="Ajmer" and r.destination="Lonavala") group by h.train_id having sum(case when m.maintainance_date<="2023-11-30" then 1 else 0 end)>=count(*)/2;
+Output :
+	+----------+----------------+
+	| train_id | train_name     |
+	+----------+----------------+
+	| 41001    | Gomati Express |
+	| 61003    | Udayan Express |
+	+----------+----------------+
+
+2.List all the routes in descending order of seats sold, including route information and distribution of seats sold (Children, Adult, Senior Citizen) in the month of October this year.
+Query : 
+	select r.*, count(case when t.age < 12 then 1 end) as children_tickets, count(case when t.age >=12 and t.age<65 then 1 end) as aldult_tickets, count(case when t.age >=65 then 1 end) as senior_tickets, count(ticket_id) as total_seats_sold from route r join ticket t on r.route_id = t.route_id where month(t.date)=10 and year(t.date)=2023 group by r.route_id, r.origin, r.destination, r.distance, r.time_taken, r.operating_days order by total_seats_sold desc;
+Output :
+	+----------+-----------+-------------+----------+---------------------+--------------------------------+------------------+----------------+----------------+------------------+
+	| route_id | origin    | destination | distance | time_taken          | operating_days                 | children_tickets | aldult_tickets | senior_tickets | total_seats_sold |
+	+----------+-----------+-------------+----------+---------------------+--------------------------------+------------------+----------------+----------------+------------------+
+	| r_008    | Dharwad   | Bengaluru   | 432      | 5 Hours             | Monday and Saturday            |                2 |              1 |              0 |                3 |
+	| r_016    | Delhi     | Bhopal      | 700      | 7 Hours 45 Minutes  | 6 Days a week(except Saturday) |                2 |              1 |              0 |                3 |
+	| r_006    | Bhopal    | Delhi       | 700      | 7 Hours 45 Minutes  | 6 Days a week(except Saturday) |                0 |              0 |              1 |                1 |
+	| r_007    | Lonavala  | Ajmer       | 1062     | 10 Hours 45 Minutes | once a week(every Saturday)    |                0 |              1 |              0 |                1 |
+	| r_010    | Mumbai    | Goa         | 588      | 6 Hours             | Every day                      |                0 |              1 |              0 |                1 |
+	| r_017    | Ajmer     | Lonavala    | 1062     | 10 Hours 45 Minutes | once a week(every Saturday)    |                0 |              0 |              1 |                1 |
+	| r_018    | Bengaluru | Dharwad     | 432      | 5 Hours             | Monday and Saturday            |                0 |              1 |              0 |                1 |
+	+----------+-----------+-------------+----------+---------------------+--------------------------------+------------------+----------------+----------------+------------------+
+
+3.List all agents’ information with more than 10 confirmed bookings in the month of September this year.
+Query :
+	select t.*, count(t1.ticket_id)as total_seat_booking from travel_agent t join ticket t1 on t.agent_id = t1.agent_id where t1.seat_status="Confirmed" and month(t1.date)=9 and year(t1.date)=2023 group by t.agent_id, t.agent_name, t.contact_no, t.commission_rate having total_seat_booking > 10;
+Output :
+	+----------+-------------------+------------+-----------------+--------------------+
+	| agent_id | agent_name        | contact_no | commission_rate | total_seat_booking |
+	+----------+-------------------+------------+-----------------+--------------------+
+	| TA_405   | Santosh Deshpande | 9873027432 | 1492.50         |                 16 |
+	| TA_404   | Mahesh Bakshi     | 7927654310 | 1304.00         |                 12 |
+	+----------+-------------------+------------+-----------------+--------------------+
+
+4.Display the details of the route most travelled by Senior Citizens
+Query : 
+	select r.*, count(t.ticket_id) as senior_booking from route r join ticket t on t.route_id = r.route_id where t.age>=65 group by route_id order by senior_booking desc limit 1;
+Output :	
+	+----------+-------------+----------------+----------+--------------------+------------------------------+----------------+
+	| route_id | origin      | destination    | distance | time_taken         | operating_days               | senior_booking |
+	+----------+-------------+----------------+----------+--------------------+------------------------------+----------------+
+	| r_011    | Gandhinagar | Mumbai Central | 548      | 5 Hours 40 Minutes | 6 Days a week(except Sunday) |              3 |
+	+----------+-------------+----------------+----------+--------------------+------------------------------+----------------+
+	
+5.Display the details of the route where a train was always on time.
+Query :
+	select r.* from route r join schedule s on s.route_id=r.route_id join train t on s.train_id=t.train_id join reaches_to rt on rt.train_id=t.train_id where s.arrival_time=rt.actual_arr_time;
+Output :
+	+----------+-----------------+----------------+----------+---------------------+--------------------------------+
+	| route_id | origin          | destination    | distance | time_taken          | operating_days                 |
+	+----------+-----------------+----------------+----------+---------------------+--------------------------------+
+	| r_001    | Mumbai Central  | Gandhinagar    | 548      | 5 Hours 40 Minutes  | 6 Days a week(except Sunday)   |
+	| r_011    | Gandhinagar     | Mumbai Central | 548      | 5 Hours 40 Minutes  | 6 Days a week(except Sunday)   |
+	| r_012    | Himachal        | New Delhi      | 412      | 6 Hours 10 Minutes  | 6 Days a week(except Thursday) |
+	| r_014    | Sainagar Shirdi | Mumbai         | 248      | 5 Hours 20 Minutes  | 6 Days a week(except Tuesday)  |
+	| r_005    | Mumbai          | Solapur        | 400      | 6 Hours 35 Minutes  | 6 Days a week(except Monday)   |
+	| r_006    | Bhopal          | Delhi          | 700      | 7 Hours 45 Minutes  | 6 Days a week(except Saturday) |
+	| r_007    | Lonavala        | Ajmer          | 1062     | 10 Hours 45 Minutes | once a week(every Saturday)    |
+	| r_017    | Ajmer           | Lonavala       | 1062     | 10 Hours 45 Minutes | once a week(every Saturday)    |
+	| r_018    | Bengaluru       | Dharwad        | 432      | 5 Hours             | Monday and Saturday            |
+	| r_009    | Bhopal          | Indore         | 246      | 3 Hours             | Every day                      |
+	| r_019    | Indore          | Bhopal         | 246      | 3 Hours             | Every day                      |
+	| r_020    | Goa             | Mumbai         | 588      | 6 Hours             | Every day                      |
+	+----------+-----------------+----------------+----------+---------------------+--------------------------------+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+SET B :
+NAME:- Snehal Jitendra Patil
+Roll No.:-23112027
+
+1)Show schedule of all trips including main driver information for 10 th October this year.
+
+mysql> select s1.train_id, s1.route_id,s1.departure_time ,s1.arrival_time,s1.date,s2.remark,s3.staff_id,
+    -> s3.staff_name,s3.contact_no,s3.city_of_residence from schedule s1 join staff_schedule s2 on s1.train_id=s2.train_id
+    -> join staff s3 on s2.staff_id=s3.staff_id where s1.date='2023-10-10' and s2.remark='Main Driver';
++----------+----------+----------------+--------------+------------+-------------+----------+------------------+------------+-------------------+
+| train_id | route_id | departure_time | arrival_time | date       | remark      | staff_id | staff_name       | contact_no | city_of_residence |
++----------+----------+----------------+--------------+------------+-------------+----------+------------------+------------+-------------------+
+| 32004    | r_006    | 13:30:00       | 22:00:00     | 2023-10-10 | Main Driver | s_1011   | Anil Y. Kumar    | 8882345610 | Patna             |
+| 32004    | r_006    | 13:30:00       | 22:00:00     | 2023-10-10 | Main Driver | s_1012   | Kamlesh W. Wable | 7695438919 | Indore            |
+| 32004    | r_016    | 13:30:00       | 18:30:00     | 2023-10-10 | Main Driver | s_1011   | Anil Y. Kumar    | 8882345610 | Patna             |
+| 32004    | r_016    | 13:30:00       | 18:30:00     | 2023-10-10 | Main Driver | s_1012   | Kamlesh W. Wable | 7695438919 | Indore            |
+| 41001    | r_007    | 07:40:00       | 13:00:00     | 2023-10-10 | Main Driver | s_1013   | Abdul Q. Kazi    | 9845398876 | New Delhi         |
+| 41001    | r_007    | 07:40:00       | 13:00:00     | 2023-10-10 | Main Driver | s_1014   | Harish I. Chawla | 8355466177 | Ahmadabad         |
+| 41001    | r_017    | 09:00:00       | 12:00:00     | 2023-10-10 | Main Driver | s_1013   | Abdul Q. Kazi    | 9845398876 | New Delhi         |
+| 41001    | r_017    | 09:00:00       | 12:00:00     | 2023-10-10 | Main Driver | s_1014   | Harish I. Chawla | 8355466177 | Ahmadabad         |
+| 41002    | r_008    | 13:30:00       | 18:50:00     | 2023-10-10 | Main Driver | s_1015   | Nikhil R. Pandey | 9172589911 | Dharwad           |
+| 41002    | r_008    | 13:30:00       | 18:50:00     | 2023-10-10 | Main Driver | s_1016   | Arya E. Asaware  | 7123411233 | Solapur           |
+| 41002    | r_018    | 12:30:00       | 15:30:00     | 2023-10-10 | Main Driver | s_1015   | Nikhil R. Pandey | 9172589911 | Dharwad           |
+| 41002    | r_018    | 12:30:00       | 15:30:00     | 2023-10-10 | Main Driver | s_1016   | Arya E. Asaware  | 7123411233 | Solapur           |
+| 53002    | r_009    | 07:25:00       | 14:00:00     | 2023-10-10 | Main Driver | s_1017   | Ramesh S. Patel  | 8799654321 | Ahmadabad         |
+| 53002    | r_009    | 07:25:00       | 14:00:00     | 2023-10-10 | Main Driver | s_1018   | Suresh A. Reddy  | 7663398811 | Bangolre          |
+| 53002    | r_019    | 10:00:00       | 16:00:00     | 2023-10-10 | Main Driver | s_1017   | Ramesh S. Patel  | 8799654321 | Ahmadabad         |
+| 53002    | r_019    | 10:00:00       | 16:00:00     | 2023-10-10 | Main Driver | s_1018   | Suresh A. Reddy  | 7663398811 | Bangolre          |
+| 61003    | r_010    | 14:30:00       | 21:05:00     | 2023-10-10 | Main Driver | s_1019   | Uday J. Agrawal  | 8651972654 | Jaipur            |
+| 61003    | r_010    | 14:30:00       | 21:05:00     | 2023-10-10 | Main Driver | s_1020   | Bhanu D. Sharma  | 8765090860 | Bhopal            |
+| 61003    | r_020    | 16:30:00       | 22:30:00     | 2023-10-10 | Main Driver | s_1019   | Uday J. Agrawal  | 8651972654 | Jaipur            |
+| 61003    | r_020    | 16:30:00       | 22:30:00     | 2023-10-10 | Main Driver | s_1020   | Bhanu D. Sharma  | 8765090860 | Bhopal            |
++----------+----------+----------------+--------------+------------+-------------+----------+------------------+------------+-------------------+
+20 rows in set (0.06 sec)
+
+2) List all coaches with mileage between 4000 and 4999 km covered for September this
+year; include information on the coach, its last service date and total number of
+scheduled trips.
+
+    SELECT c.coach_id, c.standby_coach, c.mileage, m.last_maint_date, COUNT(s.train_id) AS total_trips
+    -> FROM coach c
+    -> JOIN maintainance m ON c.coach_id = m.coach_id
+    -> JOIN has h ON c.coach_id = h.coach_id
+    -> LEFT JOIN schedule s ON h.train_id = s.train_id
+    -> WHERE c.mileage BETWEEN 4000 AND 4999
+    -> AND EXTRACT(MONTH FROM h.date) = 09
+    -> AND EXTRACT(YEAR FROM h.date) = EXTRACT(YEAR FROM CURRENT_DATE)
+    -> GROUP BY c.coach_id, c.standby_coach, c.mileage, m.last_maint_date;
++----------+---------------+---------+-----------------+-------------+
+| coach_id | standby_coach | mileage | last_maint_date | total_trips |
++----------+---------------+---------+-----------------+-------------+
+| A1       | No            | 4384    | 2023-04-15      |           2 |
+| S2       | No            | 4120    | 2023-03-17      |           2 |
+| A3       | Yes           | 4800    | 2023-03-02      |           2 |
+| B1       | Yes           | 4952    | 2023-02-27      |           2 |
++----------+---------------+---------+-----------------+-------------+
+4 rows in set (0.07 sec)
+
+3)List all agents, in descending order of percentage of confirmed booking each trip in the
+month of October this year. Include agent and route information in your result.
+
+   mysql> select a.agent_id, a.agent_name, r.route_id, count(t.ticket_id)as total_booking, sum(case when t.seat_status="Confirmed" then 1 else 0 end)as confirmes_booking, (sum(case when t.seat_status="Confirmed" then 1 else 0 end)/ count(t.ticket_id)*100)as confirmed_percent from travel_agent a join ticket t on a.agent_id=t.agent_id join route r on r.route_id=t.route_id where month(t.date)=10 and year(t.date)=2023 group by a.agent_id, r.route_id, t.ticket_id order by confirmed_percent desc;
++----------+--------------+----------+---------------+-------------------+-------------------+
+| agent_id | agent_name   | route_id | total_booking | confirmes_booking | confirmed_percent |
++----------+--------------+----------+---------------+-------------------+-------------------+
+| TA_403   | Rahul Jadhav | r_016    |             1 |                 1 |          100.0000 |
+| TA_403   | Rahul Jadhav | r_007    |             1 |                 1 |          100.0000 |
++----------+--------------+----------+---------------+-------------------+-------------------+
+2 rows in set (0.02 sec)
+
+4) Display the details of the routes where majority of bookings are not made by agents.
+
+           mysql> SELECT
+    ->     t.route_id,
+    ->     COUNT(CASE WHEN t.agent_id IS NULL THEN 1 ELSE NULL END) AS bookings_without_agent,
+    ->     COUNT(*) AS total_bookings,
+    ->     r.origin,
+    ->     r.destination
+    -> FROM
+    ->     ticket t
+    -> JOIN
+    ->     route r ON t.route_id = r.route_id
+    -> GROUP BY
+    ->     t.route_id, r.origin, r.destination
+    -> HAVING
+    ->     COUNT(CASE WHEN t.agent_id IS NULL THEN 1 ELSE NULL END) > COUNT(t.agent_id) / 2;
++----------+------------------------+----------------+--------+-------------+
+| route_id | bookings_without_agent | total_bookings | origin | destination |
++----------+------------------------+----------------+--------+-------------+
+| r_019    |                      2 |              4 | Indore | Bhopal      |
+| r_005    |                      5 |              8 | Mumbai | Solapur     |
+| r_016    |                      2 |              4 | Delhi  | Bhopal      |
+| r_017    |                      2 |              5 | Ajmer  | Lonavala    |
+| r_010    |                      1 |              2 | Mumbai | Goa         |
+| r_006    |                      1 |              1 | Bhopal | Delhi       |
++----------+------------------------+----------------+--------+-------------+
+6 rows in set (0.01 sec)
+
+5)Display the details of the agents who have made maximum commission in the Month
+of September.
+
+
+SELECT a.agent_id, sum(t.price) as b
+    -> FROM travel_agent a
+    -> JOIN ticket t ON t.agent_id = a.agent_id
+    -> WHERE MONTH(t.date) = 9
+    -> GROUP BY agent_id
+    -> ORDER BY b desc
+    -> LIMIT 1;
++----------+-------+
+| agent_id | b     |
++----------+-------+
+| TA_405   | 20925 |
++----------+-------+
+1 row in set (0.00 sec)
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+SET C : 
+Name : Atul Avinash Wanve
+ROLL NO.: 23112043
+
+1)List all trains not scheduled on 10th October this year.
+
+select * from train where train_id not in (select train_id from schedule where (date)='2023-10-10');
+
++----------+-----------------+
+| train_id | train_name      |
++----------+-----------------+
+| 11001    | Ahimsa Express  |
+| 11002    | Konarka Express |
+| 11003    | Pragraj Express |
+| 11004    | Express         |
+| 21001    | Mangla Express  |
++----------+-----------------+
+
+2)List all fleets from Dharwad to Bengaluru, in ascending order of their monthly seats sold for the month of October this year.
+
+select t.train_id,t.train_name, coalesce(sum(case when month(tkt.date) = 10 then 1 else 0 end), 0) as seats_sold_in_october from train t join schedule sch on t.train_id = sch.train_id join route r on sch.route_id = r.route_id join ticket tkt on sch.route_id = tkt.route_id where r.origin = 'dharwad' and r.destination = 'bengaluru' group by t.train_id, t.train_name order by seats_sold_in_october;
+
++----------+------------+-----------------------+
+| train_id | train_name | seats_sold_in_october |
++----------+------------+-----------------------+
+| 41002    | DB Express |                     3 |
++----------+------------+-----------------------+
+
+3)List the details of most popular route of InterCity Express Trains.
+
+select b.* from (select route_id, count(1) as cnt from ticket group by route_id order by cnt desc limit 1) a join route b on a.route_id=b.route_id;
+
++----------+---------+-----------------+----------+--------------------+-------------------------------+
+| route_id | origin  | destination     | distance | time_taken         | operating_days                |
++----------+---------+-----------------+----------+--------------------+-------------------------------+
+| r_004    | Mumbai  | Sainagar Shirdi | 248      | 5 Hours 20 Minutes | 6 Days a week(except Tuesday) |
++----------+---------+-----------------+----------+--------------------+-------------------------------+
+
+4)Display the details of the passengers who are frequent travellers with InterCity Express Trains. [Frequent traveller can be defined as the one who has travelled at least three times, irrespective of the route]
+
+select p.* from (select pass_id, count(1) from ticket group by pass_id having count(1)>=3) a join passenger p on a.pass_id=p.pass_id;
+
++---------+---------------------+------------+------+----------------------+
+| pass_id | pass_name           | contact_no | age  | discount_eligibility |
++---------+---------------------+------------+------+----------------------+
+| P_21    | Brittany Barrett    | 9997845835 |   34 | Null                 |
+| P_28    | Patricia Little     | 9993767893 |    8 | 25%                  |
+| P_61    | Shelley Christensen | 9996736438 |   62 | Null                 |
++---------+---------------------+------------+------+----------------------+
+
+5)Display the details of trains which arrived late at their destination, more than once in this year; Include the driver and co-driver information in the output. 
+
+select distinct train_id,a.train_name,a.station_id,a.date,a.departure_time,a.expected_arr_time,a.actual_arr_time,a.driver_name,a.co_driver_name from (select t.train_id, t.train_name, ri.station_id, ri.date, ri.departure_time, ri.expected_arr_time, ri.actual_arr_time, max(d.staff_name) as driver_name, cd.staff_name as co_driver_name from train t join reaches_to ri on t.train_id = ri.train_id join staff_schedule s on t.train_id = s.train_id join staff d on s.staff_id = d.staff_id and s.remark = 'main driver' join staff_schedule s2 on t.train_id = s2.train_id join staff cd on s2.staff_id = cd.staff_id and s2.remark = 'co-driver' where ri.actual_arr_time > ri.expected_arr_time and year(ri.date) = year(curdate()) group by t.train_id, ri.station_id, ri.date, ri.departure_time, ri.expected_arr_time, ri.actual_arr_time, co_driver_name having count(ri.train_id) >= 1) a where a.driver_name!=a.co_driver_name;
+
++----------+-----------------+------------+------------+----------------+-------------------+-----------------+-------------------+----------------------+
+| train_id | train_name      | station_id | date       | departure_time | expected_arr_time | actual_arr_time | driver_name       | co_driver_name       |
++----------+-----------------+------------+------------+----------------+-------------------+-----------------+-------------------+----------------------+
+| 11002    | Konarka Express | S004       | 2023-11-16 | 10:50:00       | 17:00:00          | 17:30:00        | Sanjay D. Mehta   | Mohammed W. Shaikh   |
+| 11003    | Pragraj Express | S005       | 2023-11-16 | 15:00:00       | 23:30:00          | 23:35:00        | Manoj V. Gaikwad  | Hari B. Jha          |
+| 11003    | Pragraj Express | S006       | 2023-11-16 | 04:30:00       | 13:00:00          | 13:15:00        | Manoj V. Gaikwad  | Hari B. Jha          |
+| 11004    | Express         | S007       | 2023-11-16 | 07:40:00       | 13:00:00          | 13:05:00        | Nitin A. Kulkarni | Aditya G. Chaturvedi |
+| 21001    | Mangla Express  | S011       | 2023-11-16 | 16:00:00       | 22:35:00          | 22:45:00        | Vilas H. Advani   | Ganesh K. Reddiar    |
+| 32004    | Pushpak Express | S009       | 2023-10-10 | 15:00:00       | 22:45:00          | 22:50:00        | Kamlesh W. Wable  | Anil Y. Kumar        |
+| 61003    | Udayan Express  | S017       | 2023-10-10 | 10:00:00       | 16:00:00          | 16:25:00        | Uday J. Agrawal   | Bhanu D. Sharma      |
++----------+-----------------+------------+------------+----------------+-------------------+-----------------+-------------------+----------------------+
+
+
+
+
