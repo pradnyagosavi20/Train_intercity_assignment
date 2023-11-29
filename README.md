@@ -1,15 +1,16 @@
 TRAIN INTERCITY ASSIGNMENT
 
-create statment :
+create statement :
 
 1. create table train(train_id varchar(10), train_name varchar(20), primary key(train_id));
 2. create table staff(staff_id varchar(10), staff_name varchar(20), contact_no varchar(10), city_of_residence varchar(30), primary key(staff_id));
-3. create table route(route_id varchar(10), origin varchar(20), destination varchar(10), distance varchar(30), time_taken varchar(30), operating_days varchar(50), primary key(route_id));
-4. create table station(station_id varchar(10), station_name varchar(20), primary key(station_id));
-5. create table schedule(train_id varchar(10), route_id varchar(20), date date, departure_time time, arrival_time time, primary key(train_id, route_id, station_id));
-6. alter table schedule add foreign key(train_id) references train(train_id);
-7. alter table schedule add foreign key(route_id) references route(route_id);
-8. create table maintainance(maint_id varchar(15), maintainance_date date, last_maint_date date, coach_id varchar(20), primary key(maint_id));
+3. create table route(route_id varchar(10), origin varchar(20), destination varchar(10), distance varchar(30), time_taken varchar(30), operating_days varchar(50),
+4. primary key(route_id));
+5. create table station(station_id varchar(10), station_name varchar(20), primary key(station_id));
+6. create table schedule(train_id varchar(10), route_id varchar(20), date date, departure_time time, arrival_time time, primary key(train_id, route_id, station_id));
+7. alter table schedule add foreign key(train_id) references train(train_id);
+8. alter table schedule add foreign key(route_id) references route(route_id);
+9. create table maintainance(maint_id varchar(15), maintainance_date date, last_maint_date date, coach_id varchar(20), primary key(maint_id));
 9.create table coach(coach_id varchar(10), standby_coach varchar(10), mileage varchar(20), primary key(coach_id));
 10.alter table maintainance add foreign key(coach_id) references coach(coach_id);
 11.create table has(coach_id varchar(10), train_id varchar(15), date date);
@@ -27,7 +28,8 @@ create statment :
 23.create table reaches_to(train_id varchar(20), station_id varchar(20), date date, departure_time time, expected_arr_time time, actual_arr_time time);
 24.alter table reaches_to add foreign key(train_id) references train(train_id);
 25.alter table reaches_to add foreign key(station_id) references station(station_id);
-26.create table ticket(ticket_id varchar(20), pass_id varchar(20), pass_name varchar(30), agent_id varchar(20), seat_id varchar(20), seat_status varchar(30), route_id varchar(20), age int, date date, price int, discount varchar(20), primary key(ticket_id));
+26.create table ticket(ticket_id varchar(20), pass_id varchar(20), pass_name varchar(30), agent_id varchar(20), seat_id varchar(20), seat_status varchar(30),
+route_id varchar(20), age int, date date, price int, discount varchar(20), primary key(ticket_id));
 27.alter table ticket add foreign key(pass_id) references passenger(pass_id);
 28.alter table ticket add foreign key(agent_id) references travel_agent(agent_id);
 29. alter table ticket add foreign key(seat_id) references seat(seat_id);
@@ -35,21 +37,29 @@ create statment :
 
 Load Statment :
 
-1.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/accommodation.csv" INTO TABLE accommodation FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
+1.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/accommodation.csv" INTO TABLE accommodation FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' 
+IGNORE 1 ROWS;
 2.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/coach-1.csv" INTO TABLE coach FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
-3.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/passenger.csv" INTO TABLE passenger FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
-4.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/travel_agent.csv" INTO TABLE travel_agent FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
+3.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/passenger.csv" INTO TABLE passenger FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 
+ROWS;
+4.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/travel_agent.csv" INTO TABLE travel_agent FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' 
+IGNORE 1 ROWS;
 5.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/train-1" INTO TABLE train FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
 6.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/station.csv" INTO TABLE station FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
 7.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/Staff-1.csv" INTO TABLE staff FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
 8.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/route.csv" INTO TABLE  route FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
 9.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/Seat.csv" INTO TABLE seat FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
 10.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/has.csv" INTO TABLE has FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
-11.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/reaches2.csv" INTO TABLE reaches_to FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
-12.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/schedule-1.csv" INTO TABLE schedule FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
-13.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/maintainance-1.csv" INTO TABLE maintainance FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
-14.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/staff_schedule-1.csv" INTO TABLE staff_schedule FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
-15.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/TicketMain.csv" INTO TABLE ticket FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
+11.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/reaches2.csv" INTO TABLE reaches_to FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 
+ROWS;
+12.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/schedule-1.csv" INTO TABLE schedule FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 
+ROWS;
+13.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/maintainance-1.csv" INTO TABLE maintainance FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' 
+IGNORE 1 ROWS;
+14.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/staff_schedule-1.csv" INTO TABLE staff_schedule FIELDS TERMINATED BY ',' LINES TERMINATED BY 
+'\r\n' IGNORE 1 ROWS;
+15.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/TicketMain.csv" INTO TABLE ticket FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 
+ROWS;
 
  
 1. accommodation
