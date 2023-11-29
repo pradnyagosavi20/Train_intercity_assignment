@@ -37,29 +37,21 @@ route_id varchar(20), age int, date date, price int, discount varchar(20), prima
 
 Load Statment :
 
-1.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/accommodation.csv" INTO TABLE accommodation FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' 
-IGNORE 1 ROWS;
-2.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/coach-1.csv" INTO TABLE coach FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
-3.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/passenger.csv" INTO TABLE passenger FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 
-ROWS;
-4.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/travel_agent.csv" INTO TABLE travel_agent FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' 
-IGNORE 1 ROWS;
-5.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/train-1" INTO TABLE train FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
-6.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/station.csv" INTO TABLE station FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
-7.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/Staff-1.csv" INTO TABLE staff FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
-8.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/route.csv" INTO TABLE  route FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
-9.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/Seat.csv" INTO TABLE seat FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
-10.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/has.csv" INTO TABLE has FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
-11.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/reaches2.csv" INTO TABLE reaches_to FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 
-ROWS;
-12.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/schedule-1.csv" INTO TABLE schedule FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 
-ROWS;
-13.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/maintainance-1.csv" INTO TABLE maintainance FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' 
-IGNORE 1 ROWS;
-14.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/staff_schedule-1.csv" INTO TABLE staff_schedule FIELDS TERMINATED BY ',' LINES TERMINATED BY 
-'\r\n' IGNORE 1 ROWS;
-15.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/TicketMain.csv" INTO TABLE ticket FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 
-ROWS;
+1.LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/accommodation.csv" INTO TABLE accommodation FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
+2. LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/coach-1.csv" INTO TABLE coach FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
+3. LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/passenger.csv" INTO TABLE passenger FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
+4. LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/travel_agent.csv" INTO TABLE travel_agent FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
+5. LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/train-1" INTO TABLE train FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
+6. LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/station.csv" INTO TABLE station FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
+7. LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/Staff-1.csv" INTO TABLE staff FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
+8. LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/route.csv" INTO TABLE  route FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
+9. LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/Seat.csv" INTO TABLE seat FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
+10. LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/has.csv" INTO TABLE has FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
+11. LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/reaches2.csv" INTO TABLE reaches_to FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
+12. LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/schedule-1.csv" INTO TABLE schedule FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
+13. LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/maintainance-1.csv" INTO TABLE maintainance FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
+14. LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/staff_schedule-1.csv" INTO TABLE staff_schedule FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
+15. LOAD DATA INFILE "C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/TicketMain.csv" INTO TABLE ticket FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' IGNORE 1 ROWS;
 
  
 1. accommodation
