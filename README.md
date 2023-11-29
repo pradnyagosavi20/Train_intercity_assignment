@@ -11,29 +11,29 @@ create statement :
 7. alter table schedule add foreign key(train_id) references train(train_id);
 8. alter table schedule add foreign key(route_id) references route(route_id);
 9. create table maintainance(maint_id varchar(15), maintainance_date date, last_maint_date date, coach_id varchar(20), primary key(maint_id));
-9.create table coach(coach_id varchar(10), standby_coach varchar(10), mileage varchar(20), primary key(coach_id));
-10.alter table maintainance add foreign key(coach_id) references coach(coach_id);
-11.create table has(coach_id varchar(10), train_id varchar(15), date date);
-12.alter table has add foreign key(coach_id) references coach(coach_id);
-13.alter table has add foreign key(train_id) references train(train_id);
-14.create table staff_schedule(staff_id varchar(10), route_id varchar(20), train_id varchar(10), remark varchar(20), date date, time time);
-15.alter table staff_schedule add foreign key(train_id) references train(train_id);
-16.alter table staff_schedule add foreign key(route_id) references route(route_id);
-17.alter table staff_schedule add foreign key(staff_id) references staff(staff_id);
-18.create table accommodation(room_id varchar(20), staff_id varchar(20), date date, primary key(room_id));
-19.alter table accommodation add foreign key(staff_id) references staff(staff_id);
-20.create table travel_agent(agent_id varchar(20), agent_name varchar(30), contact_no varchar(10), commission_rate varchar(20), primary key(agent_id));
-21.create table seat(seat_id varchar(40), seat_status varchar(20), primary key(seat_id));
-22.create table passenger(pass_id varchar(20), pass_name varchar(30), contact_no varchar(10), age int, discount_eligibility varchar(20), primary key(pass_id));
-23.create table reaches_to(train_id varchar(20), station_id varchar(20), date date, departure_time time, expected_arr_time time, actual_arr_time time);
-24.alter table reaches_to add foreign key(train_id) references train(train_id);
-25.alter table reaches_to add foreign key(station_id) references station(station_id);
-26.create table ticket(ticket_id varchar(20), pass_id varchar(20), pass_name varchar(30), agent_id varchar(20), seat_id varchar(20), seat_status varchar(30),
+10. create table coach(coach_id varchar(10), standby_coach varchar(10), mileage varchar(20), primary key(coach_id));
+11. alter table maintainance add foreign key(coach_id) references coach(coach_id);
+12. create table has(coach_id varchar(10), train_id varchar(15), date date);
+13. alter table has add foreign key(coach_id) references coach(coach_id);
+14. alter table has add foreign key(train_id) references train(train_id);
+15. create table staff_schedule(staff_id varchar(10), route_id varchar(20), train_id varchar(10), remark varchar(20), date date, time time);
+16. alter table staff_schedule add foreign key(train_id) references train(train_id);
+17. alter table staff_schedule add foreign key(route_id) references route(route_id);
+18. alter table staff_schedule add foreign key(staff_id) references staff(staff_id);
+19. create table accommodation(room_id varchar(20), staff_id varchar(20), date date, primary key(room_id));
+20. alter table accommodation add foreign key(staff_id) references staff(staff_id);
+21. create table travel_agent(agent_id varchar(20), agent_name varchar(30), contact_no varchar(10), commission_rate varchar(20), primary key(agent_id));
+22. create table seat(seat_id varchar(40), seat_status varchar(20), primary key(seat_id));
+23. create table passenger(pass_id varchar(20), pass_name varchar(30), contact_no varchar(10), age int, discount_eligibility varchar(20), primary key(pass_id));
+24. create table reaches_to(train_id varchar(20), station_id varchar(20), date date, departure_time time, expected_arr_time time, actual_arr_time time);
+25. alter table reaches_to add foreign key(train_id) references train(train_id);
+26. alter table reaches_to add foreign key(station_id) references station(station_id);
+27. create table ticket(ticket_id varchar(20), pass_id varchar(20), pass_name varchar(30), agent_id varchar(20), seat_id varchar(20), seat_status varchar(30),
 route_id varchar(20), age int, date date, price int, discount varchar(20), primary key(ticket_id));
-27.alter table ticket add foreign key(pass_id) references passenger(pass_id);
-28.alter table ticket add foreign key(agent_id) references travel_agent(agent_id);
-29. alter table ticket add foreign key(seat_id) references seat(seat_id);
-30.alter table ticket add foreign key(route_id) references route(route_id); 
+28. alter table ticket add foreign key(pass_id) references passenger(pass_id);
+29. alter table ticket add foreign key(agent_id) references travel_agent(agent_id);
+30. alter table ticket add foreign key(seat_id) references seat(seat_id);
+31. alter table ticket add foreign key(route_id) references route(route_id); 
 
 Load Statment :
 
