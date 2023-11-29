@@ -70,15 +70,15 @@ Load Statment :
  
 1. accommodation
    
-+----------+-------------+------+-----+---------+-------+
++----------	+-------------	+------	+-----	+---------	+-------+
 
-| Field    | Type        | Null | Key | Default | Extra |
+| Field    	| Type        	| Null 	| Key 	| Default 	| Extra |
 
-+----------+-------------+------+-----+---------+-------+
++----------	+-------------	+------	+-----	+---------	+-------+
 
-| room_id  | varchar(20) | NO   | PRI | NULL    |       |
+| room_id  	| varchar(20) 	| NO   	| PRI 	| NULL    	|      	 |
 
-| staff_id | varchar(20) | YES  | MUL | NULL    |       |
+| staff_id 	| varchar(20) 	| YES  	| MUL 	| NULL    	|      	 |
 
 | date     | date        | YES  |     | NULL    |       |
 
