@@ -248,34 +248,44 @@ NAME : GOSAVI PRADNYA MAHESH
 
 1.Show all trains information travelling between Goa Mumbai and Ajmer-Lonavala where at least half the coaches are due for 
 maintenance on or before 30 November this year.
+
 Query :
-	select t.* from train t join has h on h.train_id=t.train_id join coach c on c.coach_id=h.coach_id join maintainance m 
+
+ select t.* from train t join has h on h.train_id=t.train_id join coach c on c.coach_id=h.coach_id join maintainance m 
  on m.coach_id=c.coach_id join schedule s on s.train_id=t.train_id join route r on r.route_id=s.route_id where (r.origin="Goa" 
  and r.destination="Mumbai" or r.origin="Ajmer" and r.destination="Lonavala") group by h.train_id having sum(case when 
  m.maintainance_date<="2023-11-30" then 1 else 0 end)>=count(*)/2;
 
 2.List all the routes in descending order of seats sold, including route information and distribution of seats sold (Children, 
 Adult, Senior Citizen) in the month of October this year.
+
 Query : 
-	select r.*, count(case when t.age < 12 then 1 end) as children_tickets, count(case when t.age >=12 and t.age<65 then 1 
+
+ select r.*, count(case when t.age < 12 then 1 end) as children_tickets, count(case when t.age >=12 and t.age<65 then 1 
  end) as aldult_tickets, count(case when t.age >=65 then 1 end) as senior_tickets, count(ticket_id) as total_seats_sold from 
  route r join ticket t on r.route_id = t.route_id where month(t.date)=10 and year(t.date)=2023 group by r.route_id, r.origin, 
  r.destination, r.distance, r.time_taken, r.operating_days order by total_seats_sold desc;
 
 3.List all agents’ information with more than 10 confirmed bookings in the month of September this year.
+
 Query :
-	select t.*, count(t1.ticket_id)as total_seat_booking from travel_agent t join ticket t1 on t.agent_id = t1.agent_id 
+
+ select t.*, count(t1.ticket_id)as total_seat_booking from travel_agent t join ticket t1 on t.agent_id = t1.agent_id 
  where t1.seat_status="Confirmed" and month(t1.date)=9 and year(t1.date)=2023 group by t.agent_id, t.agent_name, t.contact_no, 
  t.commission_rate having total_seat_booking > 10;
 
 4.Display the details of the route most travelled by Senior Citizens
+
 Query : 
-	select r.*, count(t.ticket_id) as senior_booking from route r join ticket t on t.route_id = r.route_id where t.age>=65 
+
+ select r.*, count(t.ticket_id) as senior_booking from route r join ticket t on t.route_id = r.route_id where t.age>=65 
  group by route_id order by senior_booking desc limit 1;
 
 5.Display the details of the route where a train was always on time.
+
 Query :
-	select r.* from route r join schedule s on s.route_id=r.route_id join train t on s.train_id=t.train_id join reaches_to 
+
+ select r.* from route r join schedule s on s.route_id=r.route_id join train t on s.train_id=t.train_id join reaches_to 
  rt on rt.train_id=t.train_id where s.arrival_time=rt.actual_arr_time;
 
 -------------------------------------------------------------------------------------------------------------------------------
@@ -285,15 +295,19 @@ ROLL NUMBER:-23112027
 NAME:- SNEHAL JITENDRA PATIL
 
 1)Show schedule of all trips including main driver information for 10 th October this year.
+
 Query :
-	mysql> select s1.train_id, s1.route_id,s1.departure_time 
+
+ mysql> select s1.train_id, s1.route_id,s1.departure_time 
  ,s1.arrival_time,s1.date,s2.remark,s3.staff_id,s3.staff_name,s3.contact_no,s3.city_of_residence from schedule s1 join 
  staff_schedule s2 on s1.train_id=s2.train_id
  	join staff s3 on s2.staff_id=s3.staff_id where s1.date='2023-10-10' and s2.remark='Main Driver';
 
 2) List all coaches with mileage between 4000 and 4999 km covered for September this year; include information on the coach,
 lits last service date and total number of scheduled trips.
+
 Query :
+
     SELECT c.coach_id, c.standby_coach, c.mileage, m.last_maint_date, COUNT(s.train_id) AS total_trips FROM coach c JOIN
    maintainance m ON c.coach_id = m.coach_id
     JOIN has h ON c.coach_id = h.coach_id LEFT JOIN schedule s ON h.train_id = s.train_id WHERE c.mileage BETWEEN 4000 AND
@@ -303,8 +317,10 @@ Query :
 
 3)List all agents, in descending order of percentage of confirmed booking each trip in the
 month of October this year. Include agent and route information in your result.
+
 Query :
-	mysql> select a.agent_id, a.agent_name, r.route_id, count(t.ticket_id)as total_booking, sum(case when 
+
+ mysql> select a.agent_id, a.agent_name, r.route_id, count(t.ticket_id)as total_booking, sum(case when 
  t.seat_status="Confirmed" then 1 else 0 end)as confirmes_booking, (sum(case when t.seat_status="Confirmed" then 1 else 0 
  end)/ 
  count(t.ticket_id)*100)as confirmed_percent from travel_agent a join ticket t on a.agent_id=t.agent_id join route r on 
@@ -312,16 +328,20 @@ Query :
  confirmed_percent desc;
 
 4) Display the details of the routes where majority of bookings are not made by agents.
+
 Query : 
-           mysql> SELECT t.route_id,COUNT(CASE WHEN t.agent_id IS NULL THEN 1 ELSE NULL END) AS
+
+	   mysql> SELECT t.route_id,COUNT(CASE WHEN t.agent_id IS NULL THEN 1 ELSE NULL END) AS
    bookings_without_agent,COUNT(*) AS total_bookings,r.origin,
                r.destination FROM ticket t JOIN route r ON t.route_id = r.route_id GROUP BY t.route_id, r.origin,
    r.destination HAVING COUNT(CASE WHEN t.agent_id IS NULL THEN 1 ELSE NULL END) > COUNT(t.agent_id) / 2;
 
 5)Display the details of the agents who have made maximum commission in the Month
 of September.
+
 Query :
-	SELECT a.agent_id, sum(t.price) as b FROM travel_agent a JOIN ticket t ON t.agent_id = a.agent_id WHERE MONTH(t.date) 
+
+ SELECT a.agent_id, sum(t.price) as b FROM travel_agent a JOIN ticket t ON t.agent_id = a.agent_id WHERE MONTH(t.date) 
  = 9 GROUP BY agent_id ORDER BY b desc
 	LIMIT 1;
  
@@ -331,31 +351,41 @@ ROLL NO.: 23112043
 NAME : ATUL AVINASH WANVE 
 
 1)List all trains not scheduled on 10th October this year.
+
 Query :
-	select * from train where train_id not in (select train_id from schedule where date='2023-10-10');
+
+ select * from train where train_id not in (select train_id from schedule where date='2023-10-10');
 
 2)List all fleets from Dharwad to Bengaluru, in ascending order of their monthly seats sold for the month of October this year.
+
 Query :
-	select t.train_id, t.train_name, count(tkt.ticket_id) as seats_sold_in_october from train t join schedule s on 
+
+ select t.train_id, t.train_name, count(tkt.ticket_id) as seats_sold_in_october from train t join schedule s on 
  t.train_id=s.train_id join route r on s.route_id=r.route_id join ticket tkt on s.route_id=tkt.route_id where 
  r.origin='dharwad' and r.destination='bengaluru' and month(tkt.date)=10 group by t.train_id, t.train_name order by 
  seats_sold_in_october;
 
 
 3)List the details of most popular route of InterCity Express Trains.
+
 Query :
+
 select b.* from (select route_id, count(1) as cnt from ticket group by route_id order by cnt desc limit 1) a join route b on 
 a.route_id=b.route_id;
 
 
 4)Display the details of the passengers who are frequent travellers with InterCity Express Trains. [Frequent traveller can be defined as the one who has travelled at least three times, irrespective of the route]
+
 Query : 
-	select p.* from (select pass_id, count(1) from ticket group by pass_id having count(1)>=3) a join passenger p on a.pass_id=p.pass_id;
+
+ select p.* from (select pass_id, count(1) from ticket group by pass_id having count(1)>=3) a join passenger p on a.pass_id=p.pass_id;
 
 5)Display the details of trains which arrived late at their destination, more than once in this year; Include the driver and 
 co-driver information in the output. 
+
 Query :
-	select distinct 
+
+ select distinct 
 train_id,a.train_name,a.station_id,a.date,a.departure_time,a.expected_arr_time,a.actual_arr_time,a.driver_name,a.co_driver_na
 from (select t.train_id, t.train_name, ri.station_id, ri.date, ri.departure_time, ri.expected_arr_time, ri.actual_arr_time, 
 max(d.staff_name) as driver_name, cd.staff_name as co_driver_name from train t join reaches_to ri on t.train_id = ri.train_id 
