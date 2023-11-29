@@ -1,6 +1,6 @@
 TRAIN INTERCITY ASSIGNMENT
 
-create statment :
+create statement :
 
 1. create table train(train_id varchar(10), train_name varchar(20), primary key(train_id));
 2. create table staff(staff_id varchar(10), staff_name varchar(20), contact_no varchar(10), city_of_residence varchar(30), primary key(staff_id));
