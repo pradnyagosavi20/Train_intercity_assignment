@@ -71,172 +71,283 @@ Load Statment :
 1. accommodation
    
 +----------+-------------+------+-----+---------+-------+
+
 | Field    | Type        | Null | Key | Default | Extra |
+
 +----------+-------------+------+-----+---------+-------+
+
 | room_id  | varchar(20) | NO   | PRI | NULL    |       |
+
 | staff_id | varchar(20) | YES  | MUL | NULL    |       |
+
 | date     | date        | YES  |     | NULL    |       |
+
 +----------+-------------+------+-----+---------+-------+
 
 3. has
 
 +----------+-------------+------+-----+---------+-------+
+
 | Field    | Type        | Null | Key | Default | Extra |
+
 +----------+-------------+------+-----+---------+-------+
+
 | coach_id | varchar(20) | YES  | MUL | NULL    |       |
+
 | train_id | varchar(20) | YES  | MUL | NULL    |       |
+
 | date     | date        | YES  |     | NULL    |       |
+
 +----------+-------------+------+-----+---------+-------+
 
 4. coach
 
 +---------------+-------------+------+-----+---------+-------+
+
 | Field         | Type        | Null | Key | Default | Extra |
+
 +---------------+-------------+------+-----+---------+-------+
+
 | coach_id      | varchar(10) | NO   | PRI | NULL    |       |
+
 | standby_coach | varchar(10) | YES  |     | NULL    |       |
+
 | mileage       | varchar(20) | YES  |     | NULL    |       |
+
 +---------------+-------------+------+-----+---------+-------+
 
 5. maintainance
 
 +-------------------+-------------+------+-----+---------+-------+
+
 | Field             | Type        | Null | Key | Default | Extra |
+
 +-------------------+-------------+------+-----+---------+-------+
+
 | maint_id          | varchar(15) | NO   | PRI | NULL    |       |
+
 | maintainance_date | date        | YES  |     | NULL    |       |
+
 | last_maint_date   | date        | YES  |     | NULL    |       |
+
 | coach_id          | varchar(20) | YES  | MUL | NULL    |       |
+
 +-------------------+-------------+------+-----+---------+-------+
 
 6. passenger
 
 +----------------------+-------------+------+-----+---------+-------+
+
 | Field                | Type        | Null | Key | Default | Extra |
+
 +----------------------+-------------+------+-----+---------+-------+
+
 | pass_id              | varchar(20) | NO   | PRI | NULL    |       |
+
 | pass_name            | varchar(30) | YES  |     | NULL    |       |
+
 | contact_no           | varchar(10) | YES  |     | NULL    |       |
+
 | age                  | int         | YES  |     | NULL    |       |
+
 | discount_eligibility | varchar(20) | YES  |     | NULL    |       |
+
 +----------------------+-------------+------+-----+---------+-------+
 
 7. staff
 
 +-------------------+-------------+------+-----+---------+-------+
+
 | Field             | Type        | Null | Key | Default | Extra |
+
 +-------------------+-------------+------+-----+---------+-------+
+
 | staff_id          | varchar(10) | NO   | PRI | NULL    |       |
+
 | staff_name        | varchar(20) | YES  |     | NULL    |       |
+
 | contact_no        | varchar(10) | YES  |     | NULL    |       |
+
 | city_of_residence | varchar(30) | YES  |     | NULL    |       |
+
 +-------------------+-------------+------+-----+---------+-------+
 
 8. staff_schedule
 
 +----------+-------------+------+-----+---------+-------+
+
 | Field    | Type        | Null | Key | Default | Extra |
+
 +----------+-------------+------+-----+---------+-------+
+
 | staff_id | varchar(10) | NO   | PRI | NULL    |       |
+
 | route_id | varchar(20) | NO   | PRI | NULL    |       |
+
 | train_id | varchar(10) | NO   | PRI | NULL    |       |
+
 | remark   | varchar(20) | YES  |     | NULL    |       |
+
 | date     | date        | YES  |     | NULL    |       |
+
 | time     | time        | YES  |     | NULL    |       |
+
 +----------+-------------+------+-----+---------+-------+
 
 8.travel_agent
 
 +-----------------+-------------+------+-----+---------+-------+
+
 | Field           | Type        | Null | Key | Default | Extra |
+
 +-----------------+-------------+------+-----+---------+-------+
+
 | agent_id        | varchar(20) | NO   | PRI | NULL    |       |
+
 | agent_name      | varchar(30) | YES  |     | NULL    |       |
+
 | contact_no      | varchar(10) | YES  |     | NULL    |       |
+
 | commission_rate | varchar(20) | YES  |     | NULL    |       |
+
 +-----------------+-------------+------+-----+---------+-------+
 
 9. ticket 
 
 +-------------+-------------+------+-----+---------+-------+
+
 | Field       | Type        | Null | Key | Default | Extra |
+
 +-------------+-------------+------+-----+---------+-------+
+
 | ticket_id   | varchar(20) | NO   | PRI | NULL    |       |
+
 | pass_id     | varchar(20) | YES  | MUL | NULL    |       |
+
 | pass_name   | varchar(30) | YES  |     | NULL    |       |
+
 | agent_id    | varchar(30) | YES  | MUL | NULL    |       |
+
 | seat_id     | varchar(20) | YES  | MUL | NULL    |       |
+
 | seat_status | varchar(30) | YES  |     | NULL    |       |
+
 | route_id    | varchar(20) | YES  | MUL | NULL    |       |
+
 | age         | int         | YES  |     | NULL    |       |
+
 | date        | date        | YES  |     | NULL    |       |
+
 | price       | int         | YES  |     | NULL    |       |
+
 | discount    | varchar(20) | YES  |     | NULL    |       |
+
 +-------------+-------------+------+-----+---------+-------+
+
 
 10. reaches_to
 
 +-------------------+-------------+------+-----+---------+-------+
+
 | Field             | Type        | Null | Key | Default | Extra |
+
 +-------------------+-------------+------+-----+---------+-------+
+
 | train_id          | varchar(20) | YES  | MUL | NULL    |       |
+
 | station_id        | varchar(20) | YES  | MUL | NULL    |       |
+
 | date              | date        | YES  |     | NULL    |       |
+
 | departure_time    | time        | YES  |     | NULL    |       |
+
 | expected_arr_time | time        | YES  |     | NULL    |       |
+
 | actual_arr_time   | time        | YES  |     | NULL    |       |
+
 +-------------------+-------------+------+-----+---------+-------+
 
 11. route 
 
 +----------------+-------------+------+-----+---------+-------+
+
 | Field          | Type        | Null | Key | Default | Extra |
+
 +----------------+-------------+------+-----+---------+-------+
+
 | route_id       | varchar(10) | NO   | PRI | NULL    |       |
+
 | origin         | varchar(20) | YES  |     | NULL    |       |
+
 | destination    | varchar(30) | YES  |     | NULL    |       |
+
 | distance       | varchar(30) | YES  |     | NULL    |       |
+
 | time_taken     | varchar(30) | YES  |     | NULL    |       |
+
 | operating_days | varchar(50) | YES  |     | NULL    |       |
+
 +----------------+-------------+------+-----+---------+-------+
 
 12.station 
 
 +--------------+-------------+------+-----+---------+-------+
+
 | Field        | Type        | Null | Key | Default | Extra |
+
 +--------------+-------------+------+-----+---------+-------+
+
 | station_id   | varchar(10) | NO   | PRI | NULL    |       |
+
 | station_name | varchar(20) | YES  |     | NULL    |       |
+
 +--------------+-------------+------+-----+---------+-------+
 
 13. train
 
 +------------+-------------+------+-----+---------+-------+
+
 | Field      | Type        | Null | Key | Default | Extra |
+
 +------------+-------------+------+-----+---------+-------+
+
 | train_id   | varchar(10) | NO   | PRI | NULL    |       |
+
 | train_name | varchar(20) | YES  |     | NULL    |       |
+
 +------------+-------------+------+-----+---------+-------+
 
 14. schedule
 
 +----------------+-------------+------+-----+---------+-------+
+
 | Field          | Type        | Null | Key | Default | Extra |
+
 +----------------+-------------+------+-----+---------+-------+
+
 | train_id       | varchar(20) | YES  | MUL | NULL    |       |
+
 | route_id       | varchar(20) | YES  | MUL | NULL    |       |
+
 | date           | date        | YES  |     | NULL    |       |
+
 | departure_time | time        | YES  |     | NULL    |       |
+
 | arrival_time   | time        | YES  |     | NULL    |       |
+
 +----------------+-------------+------+-----+---------+-------+
 
 --> In ticket table, seat_id is depend on ticket_id. To create new seat we have to create ticket_id. To avoid dependency we have created seat table.
 15. seat
 
 +---------+-------------+------+-----+---------+-------+
+
 | Field   | Type        | Null | Key | Default | Extra |
+
 +---------+-------------+------+-----+---------+-------+
+
 | seat_id | varchar(40) | NO   | PRI | NULL    |       |
+
 +---------+-------------+------+-----+---------+-------+
 
 -------------------------------------------------------------------------------------------------------------------------------
